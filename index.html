@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8" />
-<title>Star Wars Republic Loading</title>
+<title>Gold Luxury Republic Loading</title>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 
@@ -11,9 +11,10 @@
         overflow: hidden;
         background: black;
         font-family: 'Russo One', sans-serif;
+        color: white;
     }
 
-    /* Фон — эффект движения звёзд */
+    /* Фон со звёздами */
     .stars {
         width: 2px;
         height: 2px;
@@ -29,85 +30,88 @@
         100% { transform: translateY(110vh); opacity: 0; }
     }
 
-    /* Центральная заставка */
     .center-logo {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         text-align: center;
+        margin-top: 20px;
         color: gold;
         text-shadow: 0 0 20px gold;
-        animation: fadeIn 2s ease-out;
     }
 
     .center-logo h1 {
-        font-size: 3.5rem;
-        letter-spacing: 5px;
+        font-size: 3rem;
+        letter-spacing: 4px;
+        margin-bottom: 10px;
+        animation: logoFade 2s ease-out;
     }
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translate(-50%, -60%); }
-        to { opacity: 1; transform: translate(-50%, -50%); }
+    .center-logo img {
+        margin: 10px;
+        animation: logoFade 2s ease-out;
     }
 
-    /* Анимация полосы загрузки */
+    @keyframes logoFade {
+        0% { opacity: 0; transform: scale(0.8); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+
+    .holo-pulse {
+        animation: holoPulse 3s infinite alternate;
+    }
+
+    @keyframes holoPulse {
+        0% { filter: drop-shadow(0 0 10px cyan); transform: scale(0.98); }
+        50% { filter: drop-shadow(0 0 25px cyan); transform: scale(1.02); }
+        100% { filter: drop-shadow(0 0 10px cyan); transform: scale(0.98); }
+    }
+
+    /* Полоска загрузки */
     .loader {
         width: 400px;
-        height: 8px;
+        height: 12px;
         margin: 40px auto;
         border: 2px solid gold;
         border-radius: 10px;
         overflow: hidden;
-        box-shadow: 0 0 15px gold;
+        box-shadow: 0 0 20px gold;
+        background: rgba(255, 255, 255, 0.05);
     }
 
     .loader-fill {
         width: 0%;
         height: 100%;
-        background: linear-gradient(90deg, #b8860b, #ffd700);
-        animation: loading 8s infinite;
+        background: linear-gradient(90deg, #ffd700, #b8860b);
+        animation: loading 5s forwards;
     }
 
     @keyframes loading {
         0% { width: 0%; }
-        50% { width: 100%; }
-        100% { width: 0%; }
+        100% { width: 100%; }
     }
 
-    /* Голографический эффект */
-    .holo {
-        animation: holoGlow 3s infinite ease-in-out;
-        filter: drop-shadow(0 0 25px cyan);
-    }
-    @keyframes holoGlow {
-        0% { filter: drop-shadow(0 0 10px cyan); opacity: 0.8; }
-        50% { filter: drop-shadow(0 0 35px cyan); opacity: 1; }
-        100% { filter: drop-shadow(0 0 10px cyan); opacity: 0.85; }
-    }
-
-    /* Анимация появления логотипа (сканирование) */
-    .scan {
-        position: relative;
-        overflow: hidden;
-    }
-    .scan::after {
-        content: "";
-        position: absolute;
-        top: -100%;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(rgba(0,255,255,0.1), rgba(0,255,255,0.6), rgba(0,255,255,0.1));
-        animation: scanMove 4s infinite ease-in-out;
-    }
-    @keyframes scanMove {
-        0% { top: -100%; }
-        50% { top: 100%; }
-        100% { top: -100%; }
+    /* Описание о сервере */
+    .about {
+        width: 60%;
+        margin: 20px auto;
+        background: rgba(0,0,0,0.7);
+        padding: 20px;
+        border-radius: 20px;
+        border: 2px solid gold;
+        box-shadow: 0 0 20px gold;
+        font-size: 1rem;
+        color: #ffd700;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 2s forwards 5s;
+        animation-fill-mode: forwards;
     }
 
-    /* Партиклы */
+    .about h2 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+
+    /* Дополнительные эффекты партиклов вокруг описания */
     .particle {
         position: absolute;
         width: 4px;
@@ -116,31 +120,17 @@
         border-radius: 50%;
         animation: float 6s infinite linear;
     }
+
     @keyframes float {
         from { transform: translateY(0) translateX(0); opacity: 1; }
         to { transform: translateY(-150vh) translateX(20vw); opacity: 0; }
-    }
-
-    /* Световые лучи */
-    .lightbeam {
-        position: absolute;
-        width: 2px;
-        height: 120vh;
-        background: rgba(255,255,200,0.3);
-        filter: blur(3px);
-        animation: beamMove 6s infinite linear;
-    }
-    @keyframes beamMove {
-        0% { transform: translateY(-120vh); opacity: 0; }
-        30% { opacity: 1; }
-        100% { transform: translateY(120vh); opacity: 0; }
     }
 </style>
 </head>
 <body>
 
-<!-- Фон со звездами -->
 <script>
+// Звёзды
 for (let i = 0; i < 150; i++) {
     let star = document.createElement('div');
     star.className = 'stars';
@@ -149,41 +139,30 @@ for (let i = 0; i < 150; i++) {
     star.style.animationDuration = (1.5 + Math.random() * 2) + 's';
     document.body.appendChild(star);
 }
-</script>
 
-<div class="center-logo scan holo">
-    <img src="https://img.icons8.com/?size=100&id=38539&format=png&color=000000" alt="Republic Logo" style="width:180px; filter: drop-shadow(0 0 15px gold); margin-bottom:20px;" />
-    <h1>GOLD LUXURY REPUBLIC</h1>
-    <img src="https://img.icons8.com/?size=100&id=U6YFKfeAxerI&format=png&color=000000" alt="Asoka" style="width:150px; filter: drop-shadow(0 0 25px gold); margin-top:10px;" />
-    <div class="loader"><div class="loader-fill"></div></div>
-</div>
-
-<div class="server-info">
-    ★ Star Wars RP — Gold Luxury Republic ★<br>
-    Премиальный RP сервер Республики с улучшенной атмосферой, техникой и кастомными отрядами.<br>
-    Уникальная система миссий, локаций и кастомных персонажей.
-</div>
-
-<script>
 // Партиклы
 for (let i = 0; i < 60; i++) {
     let p = document.createElement('div');
-    p.className = 'particle holo';
+    p.className = 'particle';
     p.style.left = Math.random()*100 + 'vw';
     p.style.top = Math.random()*100 + 'vh';
     p.style.animationDuration = 4 + Math.random()*6 + 's';
     document.body.appendChild(p);
 }
-
-// Световые лучи
-for (let i = 0; i < 12; i++) {
-    let beam = document.createElement('div');
-    beam.className = 'lightbeam';
-    beam.style.left = Math.random()*100 + 'vw';
-    beam.style.animationDuration = (3 + Math.random()*4) + 's';
-    document.body.appendChild(beam);
-}
 </script>
+
+<div class="center-logo">
+    <img src="https://img.icons8.com/?size=100&id=38539&format=png&color=000000" alt="Republic Logo" style="width:160px;" class="holo-pulse" />
+    <h1 class="holo-pulse">GOLD LUXURY REPUBLIC</h1>
+    <img src="https://img.icons8.com/?size=100&id=U6YFKfeAxerI&format=png&color=000000" alt="Asoka" style="width:120px;" class="holo-pulse" />
+</div>
+
+<div class="loader"><div class="loader-fill"></div></div>
+
+<div class="about">
+    <h2>О СЕРВЕРЕ</h2>
+    <p>Gold Luxury - это сервер, который создан с теплом, душой и уютом. Здесь вы сможете найти себе новых друзей, хорошо провести время с отыгрывающими РП игроками и просто насладиться самим РП процессом и ежедневными ивентами. Хорошей игры на сервере, друг)</p>
+</div>
 
 </body>
 </html>
