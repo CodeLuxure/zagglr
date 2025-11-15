@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<title>Star Wars Republic Loading</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+
+    body {
+        margin: 0;
+        overflow: hidden;
+        background: black;
+        font-family: 'Russo One', sans-serif;
+    }
+
+    /* Фон — эффект движения звёзд */
+    .stars {
+        width: 2px;
+        height: 2px;
+        background: white;
+        position: absolute;
+        border-radius: 50%;
+        animation: fly 2s linear infinite;
+    }
+
+    @keyframes fly {
+        0% { transform: translateY(-10vh); opacity: 0; }
+        30% { opacity: 1; }
+        100% { transform: translateY(110vh); opacity: 0; }
+    }
+
+    /* Центральная заставка */
+    .center-logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: gold;
+        text-shadow: 0 0 20px gold;
+        animation: fadeIn 2s ease-out;
+    }
+
+    .center-logo h1 {
+        font-size: 3.5rem;
+        letter-spacing: 5px;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translate(-50%, -60%); }
+        to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    /* Анимация полосы загрузки */
+    .loader {
+        width: 400px;
+        height: 8px;
+        margin: 40px auto;
+        border: 2px solid gold;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 15px gold;
+    }
+
+    .loader-fill {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, #b8860b, #ffd700);
+        animation: loading 8s infinite;
+    }
+
+    @keyframes loading {
+        0% { width: 0%; }
+        50% { width: 100%; }
+        100% { width: 0%; }
+    }
+
+    /* Голографический эффект */
+    .holo {
+        animation: holoGlow 3s infinite ease-in-out;
+        filter: drop-shadow(0 0 25px cyan);
+    }
+    @keyframes holoGlow {
+        0% { filter: drop-shadow(0 0 10px cyan); opacity: 0.8; }
+        50% { filter: drop-shadow(0 0 35px cyan); opacity: 1; }
+        100% { filter: drop-shadow(0 0 10px cyan); opacity: 0.85; }
+    }
+
+    /* Анимация появления логотипа (сканирование) */
+    .scan {
+        position: relative;
+        overflow: hidden;
+    }
+    .scan::after {
+        content: "";
+        position: absolute;
+        top: -100%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(0,255,255,0.1), rgba(0,255,255,0.6), rgba(0,255,255,0.1));
+        animation: scanMove 4s infinite ease-in-out;
+    }
+    @keyframes scanMove {
+        0% { top: -100%; }
+        50% { top: 100%; }
+        100% { top: -100%; }
+    }
+
+    /* Партиклы */
+    .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: rgba(255,215,0,0.9);
+        border-radius: 50%;
+        animation: float 6s infinite linear;
+    }
+    @keyframes float {
+        from { transform: translateY(0) translateX(0); opacity: 1; }
+        to { transform: translateY(-150vh) translateX(20vw); opacity: 0; }
+    }
+
+    /* Световые лучи */
+    .lightbeam {
+        position: absolute;
+        width: 2px;
+        height: 120vh;
+        background: rgba(255,255,200,0.3);
+        filter: blur(3px);
+        animation: beamMove 6s infinite linear;
+    }
+    @keyframes beamMove {
+        0% { transform: translateY(-120vh); opacity: 0; }
+        30% { opacity: 1; }
+        100% { transform: translateY(120vh); opacity: 0; }
+    }
+</style>
+</head>
+<body>
+
+<!-- Фон со звездами -->
+<script>
+for (let i = 0; i < 150; i++) {
+    let star = document.createElement('div');
+    star.className = 'stars';
+    star.style.left = Math.random() * 100 + 'vw';
+    star.style.top = Math.random() * 100 + 'vh';
+    star.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+    document.body.appendChild(star);
+}
+</script>
+
+<div class="center-logo scan holo">
+    <img src="https://img.icons8.com/?size=100&id=38539&format=png&color=000000" alt="Republic Logo" style="width:180px; filter: drop-shadow(0 0 15px gold); margin-bottom:20px;" />
+    <h1>GOLD LUXURY REPUBLIC</h1>
+    <img src="https://img.icons8.com/?size=100&id=U6YFKfeAxerI&format=png&color=000000" alt="Asoka" style="width:150px; filter: drop-shadow(0 0 25px gold); margin-top:10px;" />
+    <div class="loader"><div class="loader-fill"></div></div>
+</div>
+
+<div class="server-info">
+    ★ Star Wars RP — Gold Luxury Republic ★<br>
+    Премиальный RP сервер Республики с улучшенной атмосферой, техникой и кастомными отрядами.<br>
+    Уникальная система миссий, локаций и кастомных персонажей.
+</div>
+
+<script>
+// Партиклы
+for (let i = 0; i < 60; i++) {
+    let p = document.createElement('div');
+    p.className = 'particle holo';
+    p.style.left = Math.random()*100 + 'vw';
+    p.style.top = Math.random()*100 + 'vh';
+    p.style.animationDuration = 4 + Math.random()*6 + 's';
+    document.body.appendChild(p);
+}
+
+// Световые лучи
+for (let i = 0; i < 12; i++) {
+    let beam = document.createElement('div');
+    beam.className = 'lightbeam';
+    beam.style.left = Math.random()*100 + 'vw';
+    beam.style.animationDuration = (3 + Math.random()*4) + 's';
+    document.body.appendChild(beam);
+}
+</script>
+
+</body>
+</html>
